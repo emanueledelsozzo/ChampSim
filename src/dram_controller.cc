@@ -391,6 +391,10 @@ void MEMORY_CONTROLLER::begin_phase()
   for (auto& chan : channels) {
     DRAM_CHANNEL::stats_type new_stats;
     new_stats.name = "Channel " + std::to_string(chan_idx++);
+    new_stats.tRAS_cycles = (long)(chan.tRAS / chan.data_bus_period / 2);
+    new_stats.tRP_cycles = (long)(chan.tRP / chan.data_bus_period / 2);
+    new_stats.data_rate_mhz = (1.0/(double)(chan.data_bus_period.count())) * 1000000.0;
+    new_stats.latency_ns = (double)(chan.tRAS.count() + chan.tRP.count()) / 1000.0;
     chan.sim_stats = new_stats;
     chan.warmup = warmup;
   }

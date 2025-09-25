@@ -20,6 +20,8 @@ struct cpu_stats {
 
   [[nodiscard]] auto instrs() const { return end_instrs - begin_instrs; }
   [[nodiscard]] auto cycles() const { return end_cycles - begin_cycles; }
+
+  double frequency = 0;
 };
 
 cpu_stats operator-(cpu_stats lhs, cpu_stats rhs);

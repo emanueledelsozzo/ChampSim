@@ -36,7 +36,8 @@ void to_json(nlohmann::json& j, const O3_CPU::stats_type& stats)
   j = nlohmann::json{{"instructions", stats.instrs()},
                      {"cycles", stats.cycles()},
                      {"Avg ROB occupancy at mispredict", std::ceil(stats.total_rob_occupancy_at_branch_mispredict) / std::ceil(total_mispredictions)},
-                     {"mispredict", mpki}};
+                     {"mispredict", mpki},
+                     {"frequency GHz", stats.frequency}};
 }
 
 void to_json(nlohmann::json& j, const CACHE::stats_type& stats)
@@ -57,6 +58,7 @@ void to_json(nlohmann::json& j, const CACHE::stats_type& stats)
     total_downstream_demands -= stats.mshr_return.value_or(std::pair{access_type::PREFETCH, cpu}, mshr_return_value_type{});
 
   statsmap.emplace("miss latency", std::ceil(stats.total_miss_latency_cycles) / std::ceil(total_downstream_demands));
+  statsmap.emplace("latency cycles", stats.latency);
   for (const auto type : {access_type::LOAD, access_type::RFO, access_type::PREFETCH, access_type::WRITE, access_type::TRANSLATION}) {
     std::vector<hits_value_type> hits;
     std::vector<misses_value_type> misses;
@@ -81,7 +83,11 @@ void to_json(nlohmann::json& j, const DRAM_CHANNEL::stats_type stats)
                      {"WQ ROW_BUFFER_HIT", stats.WQ_ROW_BUFFER_HIT},
                      {"WQ ROW_BUFFER_MISS", stats.WQ_ROW_BUFFER_MISS},
                      {"AVG DBUS CONGESTED CYCLE", (std::ceil(stats.dbus_cycle_congested) / std::ceil(stats.dbus_count_congested))},
-                     {"REFRESHES ISSUED", stats.refresh_cycles}};
+                     {"REFRESHES ISSUED", stats.refresh_cycles},
+                     {"tRAS CYCLES", stats.tRAS_cycles},
+                     {"tRP CYCLES", stats.tRP_cycles},
+                     {"DATA RATE MHZ", stats.data_rate_mhz},
+                     {"LATENCY NS", stats.latency_ns}};
 }
 
 namespace champsim

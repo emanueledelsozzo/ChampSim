@@ -849,7 +849,9 @@ void CACHE::begin_phase()
   stats_type new_sim_stats;
 
   new_roi_stats.name = NAME;
+  new_roi_stats.latency = (long)((HIT_LATENCY + FILL_LATENCY) / clock_period);
   new_sim_stats.name = NAME;
+  new_sim_stats.latency = (long)((HIT_LATENCY + FILL_LATENCY) / clock_period);
 
   roi_stats = new_roi_stats;
   sim_stats = new_sim_stats;

@@ -61,6 +61,7 @@ std::vector<std::string> champsim::plain_printer::format(O3_CPU::stats_type stat
     lines.push_back(fmt::format("{}: {}", branch_type_names.at(champsim::to_underlying(idx)),
                                 ::print_ratio(std::kilo::num * stats.branch_type_misses.value_or(idx, 0), stats.instrs())));
   }
+  lines.push_back(fmt::format("{} Frequency GHz: {}", stats.name, stats.frequency));
 
   return lines;
 }
@@ -122,6 +123,8 @@ std::vector<std::string> champsim::plain_printer::format(CACHE::stats_type stats
     uint64_t total_downstream_demands = total_mshr_return - stats.mshr_return.value_or(std::pair{access_type::PREFETCH, cpu}, mshr_return_value_type{});
     lines.push_back(
         fmt::format("cpu{}->{} AVERAGE MISS LATENCY: {} cycles", cpu, stats.name, ::print_ratio(stats.total_miss_latency_cycles, total_downstream_demands)));
+    lines.push_back(
+        fmt::format("cpu{}->{} LATENCY: {} cycles", cpu, stats.name, stats.latency));
   }
 
   return lines;
@@ -142,6 +145,11 @@ std::vector<std::string> champsim::plain_printer::format(DRAM_CHANNEL::stats_typ
   else
     lines.push_back(fmt::format("{} REFRESHES ISSUED: -", stats.name));
 
+  lines.push_back(fmt::format("{} tRAS CYCLES: {:10}", stats.name, stats.tRAS_cycles));
+  lines.push_back(fmt::format("{} tRP CYCLES: {:10}", stats.name, stats.tRP_cycles));
+  lines.push_back(fmt::format("{} DATA RATE MHZ: {:10}", stats.name, stats.data_rate_mhz));
+  lines.push_back(fmt::format("{} LATENCY NS: {:10}", stats.name, stats.latency_ns));
+  
   return lines;
 }
 

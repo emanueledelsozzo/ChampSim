@@ -88,6 +88,7 @@ void O3_CPU::begin_phase()
   stats.name = "CPU " + std::to_string(cpu);
   stats.begin_instrs = num_retired;
   stats.begin_cycles = begin_phase_time.time_since_epoch() / clock_period;
+  stats.frequency = 1.0 / (double)clock_period.count() * 1000.0;
   sim_stats = stats;
 }
 
