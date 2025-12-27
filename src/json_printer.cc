@@ -84,8 +84,10 @@ void to_json(nlohmann::json& j, const DRAM_CHANNEL::stats_type stats)
                      {"WQ ROW_BUFFER_MISS", stats.WQ_ROW_BUFFER_MISS},
                      {"AVG DBUS CONGESTED CYCLE", (std::ceil(stats.dbus_cycle_congested) / std::ceil(stats.dbus_count_congested))},
                      {"REFRESHES ISSUED", stats.refresh_cycles},
-                     {"tRAS CYCLES", stats.tRAS_cycles},
+                     {"tCAS CYCLES", stats.tCAS_cycles},
+                     {"tRCD CYCLES", stats.tRCD_cycles},
                      {"tRP CYCLES", stats.tRP_cycles},
+                     {"tRAS CYCLES", stats.tRAS_cycles},
                      {"DATA RATE MHZ", stats.data_rate_mhz},
                      {"LATENCY NS", stats.latency_ns}};
 }

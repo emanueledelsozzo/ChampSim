@@ -10,7 +10,7 @@ struct dram_stats {
   uint64_t dbus_count_congested = 0;
   uint64_t refresh_cycles = 0;
   unsigned WQ_ROW_BUFFER_HIT = 0, WQ_ROW_BUFFER_MISS = 0, RQ_ROW_BUFFER_HIT = 0, RQ_ROW_BUFFER_MISS = 0, WQ_FULL = 0;
-  long tRAS_cycles = 0, tRP_cycles = 0;
+  long tCAS_cycles = 0, tRCD_cycles = 0, tRP_cycles = 0, tRAS_cycles = 0;
   double data_rate_mhz = 0, latency_ns = 0;
 
 };

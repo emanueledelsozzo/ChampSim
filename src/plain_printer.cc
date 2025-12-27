@@ -145,8 +145,10 @@ std::vector<std::string> champsim::plain_printer::format(DRAM_CHANNEL::stats_typ
   else
     lines.push_back(fmt::format("{} REFRESHES ISSUED: -", stats.name));
 
-  lines.push_back(fmt::format("{} tRAS CYCLES: {:10}", stats.name, stats.tRAS_cycles));
+  lines.push_back(fmt::format("{} tCAS CYCLES: {:10}", stats.name, stats.tCAS_cycles));
+  lines.push_back(fmt::format("{} tRCD CYCLES: {:10}", stats.name, stats.tRCD_cycles));
   lines.push_back(fmt::format("{} tRP CYCLES: {:10}", stats.name, stats.tRP_cycles));
+  lines.push_back(fmt::format("{} tRAS CYCLES: {:10}", stats.name, stats.tRAS_cycles));
   lines.push_back(fmt::format("{} DATA RATE MHZ: {:10}", stats.name, stats.data_rate_mhz));
   lines.push_back(fmt::format("{} LATENCY NS: {:10}", stats.name, stats.latency_ns));
   
